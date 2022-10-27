@@ -1,13 +1,10 @@
 package com.vanderbilt.tradeAPI.service;
 
-import com.binance.api.client.BinanceApiClientFactory;
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.account.AssetBalance;
-import com.binance.api.client.domain.account.NewOrder;
 import com.binance.api.client.domain.account.NewOrderResponse;
 import com.vanderbilt.tradeAPI.config.BinanceApiConfig;
 import com.vanderbilt.tradeAPI.validation.OrderValidation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
