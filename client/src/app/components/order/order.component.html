@@ -1,0 +1,31 @@
+<p-card>
+    <h4>Fill the form below to purchase or sell cryptos</h4>
+        <form [formGroup]='orderForm'>
+            <div class='grid'>
+                <label for="asset" class='col-3'> Asset: </label>
+                <p-dropdown [options]="assets" optionLabel="name" optionValue='symbol' placeholder='Select cryptocurrency' formControlName='asset'></p-dropdown>
+            </div>
+            <br>
+            <div class='grid'>
+                <label for="quantity" class='col-3'>Quantity: </label>
+                <p-inputNumber id="quantity" placeholder='Quantity' mode='decimal' [maxFractionDigits]='2' formControlName='quantity'></p-inputNumber>
+            </div>
+            <br>
+            <div class='grid'>
+                <label for="type" class='col-3'>Type: </label>
+                <p-dropdown [options]="types" formControlName='orderType' placeholder='Select order type' optionLabel='type' optionValue='type'></p-dropdown>
+            </div>
+        </form>
+        <br>
+        <div>
+            <button pButton (click)='placeAnOrder()' [disabled]='!orderForm.valid'>ORDER</button>
+        </div>
+        <div *ngIf='orderError'>
+            <p>{{orderError}}</p>
+        </div>
+        <div *ngIf='orderSuccess'>
+            <p class='danger'>{{orderSuccess}}</p>
+        </div>
+</p-card>
+<br>
+<a routerLink='/dashboard'>BACK TO DASHBOARD</a>
