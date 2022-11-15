@@ -120,7 +120,6 @@ getCryptoBalances () {
 
   //Make an array of cryptos and their balances 
   this.cryptos = this.balances.map(bal => {
-    console.log(bal)
     return {
       symbol: bal.asset, 
       balance: (bal.free).substring(0, (bal.free).indexOf('.') + 3), 
@@ -130,9 +129,6 @@ getCryptoBalances () {
 }
 
 aggregateBalance(){
-  console.log(this.prices);
-  console.log(this.balances);
-  console.log(this.cryptos);
   const initVal = 0;
   this.balance = this.cryptos.reduce((prev, curr) => prev + (parseFloat(curr.balance) * parseFloat(curr.price)), initVal).toFixed(2).toString();
 }
