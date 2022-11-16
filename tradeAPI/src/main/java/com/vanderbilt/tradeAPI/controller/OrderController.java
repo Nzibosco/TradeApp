@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "https://www.binancebot.link/"})
+@CrossOrigin(origins = {"http://localhost:4200", "https://www.binancebot.link"})
 @RequestMapping("orders")
 public class OrderController {
     @Autowired
