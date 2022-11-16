@@ -27,6 +27,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 
 import { OrderComponent } from './components/order/order.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { OrderComponent } from './components/order/order.component';
     NavbarComponent,
     HomeComponent,
     DashboardComponent,
-    OrderComponent
+    OrderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

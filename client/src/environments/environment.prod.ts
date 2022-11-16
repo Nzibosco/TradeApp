@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  url: 'http://localhost:8080'
+  url: 'https://api.binancebot.link/'
+  //url: 'http://localhost:8080'
 };

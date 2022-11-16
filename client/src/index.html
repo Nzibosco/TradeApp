@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>TradeApp</title>
@@ -7,10 +8,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css">
+  <!-- Facebook-->
+
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '{your-app-id}',
+        cookie: true,
+        xfbml: true,
+        version: '{api-version}'
+      });
+
+      FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <!-- Button for facebook login -->
+  <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=2198102030377138&autoLogAppEvents=1" nonce="uzYcWZ3f"></script>
 </head>
+
 <body>
   <app-root></app-root>
 </body>
- <!-- Facebook messenger plugin module SDK-->
- <!-- <script type=”text/javascript”     src='https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js'></script> -->
+<!-- Facebook messenger plugin module SDK-->
+<!-- <script type=”text/javascript”     src='https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js'></script> -->
+
 </html>

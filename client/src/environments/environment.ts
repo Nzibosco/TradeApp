@@ -6,7 +6,8 @@ import { IEnvironment } from "src/app/shared/models/environment";
 
 export const environment: IEnvironment = {
   production: false,
-  url: 'http://localhost:8080'
+  //url: 'http://localhost:8080'
+  url: 'https://api.binancebot.link/'
 };
 
 /*
