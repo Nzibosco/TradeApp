@@ -42,6 +42,12 @@
 			<artifactId>binance-api-client</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+		<!--Facebook messenger4j dependencies -->
+		<dependency>
+			<groupId>com.github.messenger4j</groupId>
+			<artifactId>messenger4j</artifactId>
+			<version>1.1.0</version>
+		</dependency>
 <!--		<dependency>-->
 <!--			<groupId>org.roboquant</groupId>-->
 <!--			<artifactId>binance-api-client</artifactId>-->

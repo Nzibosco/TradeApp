@@ -3,6 +3,7 @@ package com.vanderbilt.tradeAPI.service;
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.account.AssetBalance;
 import com.binance.api.client.domain.account.NewOrderResponse;
+import com.binance.api.client.domain.market.TickerPrice;
 import com.vanderbilt.tradeAPI.config.BinanceApiConfig;
 import com.vanderbilt.tradeAPI.validation.OrderValidation;
 import org.springframework.stereotype.Service;
@@ -55,5 +56,14 @@ public class ServiceImpl implements ApiService {
                 bal.getAsset().equals("BNB") ||
                 bal.getAsset().equals("ADA") ||
                 bal.getAsset().equals("ETH")).collect(Collectors.toList());
+    }
+
+    public List<TickerPrice> getLatestPrices() {
+        List<TickerPrice> prices = client.getAllPrices();
+        return prices.stream().filter(pr ->
+                pr.getSymbol().equals("DOGEUSD") ||
+                pr.getSymbol().equals("BNBUSD") ||
+                pr.getSymbol().equals("ADAUSD") ||
+                pr.getSymbol().equals("ETHUSD")).collect(Collectors.toList());
     }
 }
