@@ -11,34 +11,41 @@
         </p-card>
         <p-card id='orders'>
             <div>
-                <input type="text" pInputText [value] ="order" placeholder='Place an order' class='col-12 md:col-9 lg:col-9'/> 
+                <input type="text" pInputText [value]="order" placeholder='Place an order'
+                    class='col-12 md:col-9 lg:col-9' />
                 &nbsp;
                 <button pButton label='Trade' icon='pi pi-bitcoin' class='p-button-round p-button-success'></button>
             </div>
             <p>
-                <strong>*</strong> <small>To buy or sell crypto, you must follow the formatting as in the example...... .... 
-                    To buy or sell crypto, you must follow the formatting as in the example...... .... 
-                    To buy or sell crypto, you must follow the formatting as in the example...... .... 
+                <strong>*</strong> <small>To buy or sell crypto, you must follow the formatting as in the example......
+                    ....
+                    To buy or sell crypto, you must follow the formatting as in the example...... ....
+                    To buy or sell crypto, you must follow the formatting as in the example...... ....
                 </small>
             </p>
             <div>
-                <button pButton label='Place an order with a flex form' routerLink='/order' icon='pi pi-angle-double-right'></button>
+                <button pButton label='Place an order with a flex form' routerLink='/order'
+                    icon='pi pi-angle-double-right'></button>
             </div>
         </p-card>
     </div>
 
-        <p-card class='col-12 md:col-4 lg:col-4'>
-            <p-table [value]='cryptos' responsiveLayout="scroll">
-                <ng-template pTemplate='body' let-crypto>
-                    <tr>
-                        <td>{{crypto.symbol}}</td>
-                        <td [style]="{'text-align': 'right'}">{{crypto.balance}}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </p-card>
+    <p-card class='col-12 md:col-4 lg:col-4'>
+        <p-table [value]='cryptos' responsiveLayout="scroll">
+            <ng-template pTemplate='body' let-crypto>
+                <tr>
+                    <td>{{crypto.symbol}}</td>
+                    <td [style]="{'text-align': 'right'}">{{crypto.balance}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
 </div>
 <!-- Messenger Chat Plugin code -->
 <div id="fb-customer-chat" class="fb-customerchat">
 </div>
-
+<script>
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute("page_id", "101949409415067");
+    chatbox.setAttribute("attribution", "biz_inbox");
+</script>
