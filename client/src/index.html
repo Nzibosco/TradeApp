@@ -32,40 +32,41 @@
     }(document, 'script', 'facebook-jssdk'));
   </script> -->
   <!-- Button for facebook login and chat plugin-->
-<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=2198102030377138&autoLogAppEvents=1" nonce="uzYcWZ3f"></script> -->
+  <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=2198102030377138&autoLogAppEvents=1" nonce="uzYcWZ3f"></script> -->
 
-<!-- Facebook messenger plugin -->
+  <!-- Facebook messenger plugin -->
 
-<!-- Messenger Chat Plugin Code -->
-<!-- <div id="fb-root"></div> -->
+  <!-- Messenger Chat Plugin Code -->
+  <!-- <div id="fb-root"></div> -->
 
-<!-- Your Chat Plugin code -->
-<!-- <div id="fb-customer-chat" class="fb-customerchat">
+  <!-- Your Chat Plugin code -->
+  <!-- <div id="fb-customer-chat" class="fb-customerchat">
 </div> -->
 
 </head>
 
 <body>
-  <div id="fb-root"></div><!-- Root for facebook messenger -->
-  <app-root></app-root>
+  <div id="fb-root">
+    <!-- Root for facebook messenger -->
+    <app-root></app-root>
+  </div>
 
-  <!-- Facebook messenger plugin code -->
   <script>
     var chatbox = document.getElementById('fb-customer-chat');
     chatbox.setAttribute("page_id", "101949409415067");
     chatbox.setAttribute("attribution", "biz_inbox");
   </script>
-  
+
   <!-- Your SDK code -->
   <script>
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
       FB.init({
-        xfbml            : true,
-        version          : 'v15.0'
+        xfbml: true,
+        version: 'v15.0'
       });
     };
-  
-    (function(d, s, id) {
+
+    (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
