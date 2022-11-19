@@ -5,6 +5,7 @@ import com.binance.api.client.domain.account.AssetBalance;
 import com.binance.api.client.domain.account.NewOrderResponse;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.vanderbilt.tradeAPI.config.BinanceApiConfig;
+import com.vanderbilt.tradeAPI.entity.Action;
 import com.vanderbilt.tradeAPI.validation.OrderValidation;
 import org.springframework.stereotype.Service;
 
@@ -65,5 +66,39 @@ public class ServiceImpl implements ApiService {
                 pr.getSymbol().equals("BNBUSD") ||
                 pr.getSymbol().equals("ADAUSD") ||
                 pr.getSymbol().equals("ETHUSD")).collect(Collectors.toList());
+    }
+
+    /**
+     * Method that processes text message from UI or messenger chat
+     */
+    public String processChatRequest (String message, Action action){
+        /**
+         * Scenarios:
+         * - User request prices
+         * - Request balance
+         * - Request trading history
+         * - Place a sell or buy order
+         * SAMPLE TEXT:
+         * > current prices
+         * > Sell 2 etheriums
+         * > buy 100 dogecoin
+         * > get history
+         * >
+         */
+        switch(action){
+            case BALANCE :
+                return "Getting the balance for you";
+            case PRICES:
+                return "Getting the latest prices for you!";
+            case BUY:
+                return "About to place a buy order";
+            case SELL:
+                return "About to sell crypto for you";
+            case HISTORY:
+                return "Retrieving your trade history";
+            default:
+                return "Sorry, I couldn't understand your request. Try again";
+        }
+
     }
 }
