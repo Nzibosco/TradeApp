@@ -9,6 +9,7 @@ import com.vanderbilt.tradeAPI.entity.Action;
 import com.vanderbilt.tradeAPI.validation.OrderValidation;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,9 +19,6 @@ import static com.binance.api.client.domain.account.NewOrder.marketSell;
 @Service
 public class ServiceImpl implements ApiService {
 
-    private final String BUY = "BUY";
-    private final String SELL = "SELL";
-    private final String APPENDER = "USD";
     private final BinanceApiRestClient client;
 
     public ServiceImpl(){
@@ -31,6 +29,9 @@ public class ServiceImpl implements ApiService {
     @Override
     public NewOrderResponse marketOrder(String asset, String orderType, String quantity) throws Exception {
         if(OrderValidation.checkAssetAllowed(asset)) {
+            String BUY = "BUY";
+            String SELL = "SELL";
+            String APPENDER = "USD";
             if (orderType.equals(BUY)) {
                 return client.newOrder(marketBuy(asset + APPENDER, quantity));
             } else if (orderType.equals(SELL)) {
@@ -84,10 +85,11 @@ public class ServiceImpl implements ApiService {
          * > buy 100 dogecoin
          * > get history
          * >
+         *
          */
         switch(action){
             case BALANCE :
-                return "Getting the balance for you";
+                return "Getting the balance for you ... \n The balance is " + sendBalance();
             case PRICES:
                 return "Getting the latest prices for you!";
             case BUY:
@@ -100,5 +102,20 @@ public class ServiceImpl implements ApiService {
                 return "Sorry, I couldn't understand your request. Try again";
         }
 
+    }
+
+    private double sendBalance(){
+        List<TickerPrice> prices = getLatestPrices();
+        List<AssetBalance> balances = getBalances();
+        double balance = 0.00;
+        Iterator<TickerPrice> iter = prices.iterator();
+        while(iter.hasNext()){
+            TickerPrice price = iter.next();
+            AssetBalance asset = balances.stream().filter(bal -> bal.getAsset().equals(price.getSymbol())).collect(Collectors.toList()).get(0);
+            balance+= (Double.parseDouble(price.getPrice()) * Double.parseDouble(asset.getFree()));
+            iter.remove();
+            balances.remove(asset);
+        }
+        return balance;
     }
 }
