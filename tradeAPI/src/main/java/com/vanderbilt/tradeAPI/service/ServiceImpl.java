@@ -7,10 +7,13 @@ import com.binance.api.client.domain.market.TickerPrice;
 import com.vanderbilt.tradeAPI.config.BinanceApiConfig;
 import com.vanderbilt.tradeAPI.entity.Action;
 import com.vanderbilt.tradeAPI.validation.OrderValidation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.binance.api.client.domain.account.NewOrder.marketBuy;
@@ -19,6 +22,7 @@ import static com.binance.api.client.domain.account.NewOrder.marketSell;
 @Service
 public class ServiceImpl implements ApiService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ServiceImpl.class);
     private final BinanceApiRestClient client;
 
     public ServiceImpl(){
@@ -52,7 +56,9 @@ public class ServiceImpl implements ApiService {
 
     @Override
     public List<AssetBalance> getBalances(){
+        logger.info("...........Getting balances ...");
         List<AssetBalance> balances = client.getAccount().getBalances();
+        logger.info("....Successfully retrieved balances. Proceeding with filtering the crypto assets we need");
         return balances.stream().filter(bal -> bal.getAsset().equals("USD") ||
                 bal.getAsset().equals("DOGE") ||
                 bal.getAsset().equals("BNB") ||
@@ -89,7 +95,7 @@ public class ServiceImpl implements ApiService {
          */
         switch(action){
             case BALANCE :
-                return "Getting the balance for you ... \n The balance is " + sendBalance();
+                return "Getting the balance for you ... \n The balance is " + aggregateBalance();
             case PRICES:
                 return "Getting the latest prices for you!";
             case BUY:
@@ -104,18 +110,37 @@ public class ServiceImpl implements ApiService {
 
     }
 
-    private double sendBalance(){
+    public double aggregateBalance(){
+        logger.info("..................PROCESSING GET BALANCE MESSENGER REQUEST ");
+        double balance;
+        //Map with assets and their respective prices
+        HashMap<String, Double> map = assetBalances();
+        logger.info("............Successfully retrieved assets and their monetary balances "+ map);
+        balance = map.values().stream().reduce(0d, Double::sum);
+        return balance;
+    }
+
+    public HashMap<String, Double> assetBalances (){
+        logger.info("..................PROCESSING GET BALANCE MESSENGER REQUEST ");
         List<TickerPrice> prices = getLatestPrices();
         List<AssetBalance> balances = getBalances();
-        double balance = 0.00;
-        Iterator<TickerPrice> iter = prices.iterator();
-        while(iter.hasNext()){
-            TickerPrice price = iter.next();
-            AssetBalance asset = balances.stream().filter(bal -> bal.getAsset().equals(price.getSymbol())).collect(Collectors.toList()).get(0);
-            balance+= (Double.parseDouble(price.getPrice()) * Double.parseDouble(asset.getFree()));
-            iter.remove();
-            balances.remove(asset);
+        //Map with assets and their respective prices
+        HashMap<String, Double> map = new HashMap<>();
+        for(TickerPrice ticker: prices){
+            map.putIfAbsent(ticker.getSymbol().replace("USD", ""), Double.parseDouble(ticker.getPrice()));
         }
-        return balance;
+        //Multiple prices with asset balance
+        logger.info(".... MAP WITH ASSETS AND PRICES BEFORE MULTIPLYING WITH BALANCES ==== " + map);
+        for(AssetBalance bal: balances){
+            if (map.containsKey(bal.getAsset())) {
+                map.put(bal.getAsset(), map.get(bal.getAsset()) * Double.parseDouble(bal.getFree()));
+            } else {
+                map.put(bal.getAsset(), Double.parseDouble(bal.getFree()));
+                logger.info(" ..... Asset names from balances and prices lists differ");
+            }
+        }
+        logger.info(".......MAP UPDATED, PROCEEDING WITH AGGREGATING THE BALANCES");
+        logger.info(".... UPDATED MAP = " + map);
+        return map;
     }
 }

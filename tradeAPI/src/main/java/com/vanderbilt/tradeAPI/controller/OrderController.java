@@ -8,6 +8,7 @@ import com.vanderbilt.tradeAPI.service.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -32,8 +33,21 @@ public class OrderController {
         return service.getBalances();
     }
 
+    @GetMapping("aggregateBalance")
+    public double getAggregateBalance (){
+        return service.aggregateBalance();
+    }
+
     @GetMapping("prices")
     public List<TickerPrice> getAllAssetsPrices() {
         return service.getLatestPrices();
+    }
+
+    /**
+     * Map containing assets and their cash values (qty * prices)
+     */
+   @GetMapping("assetValues")
+    public HashMap<String, Double> assetValues (){
+        return service.assetBalances();
     }
 }
