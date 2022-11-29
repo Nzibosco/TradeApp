@@ -50,4 +50,22 @@ public class OrderController {
     public HashMap<String, Double> assetValues (){
         return service.assetBalances();
     }
+
+    /**
+     * Processing a chat order
+     */
+    @PostMapping("chatOrder")
+    public String processChatOrder(@RequestBody String chat){
+       if(chat.length() > 1){
+           if(chat.toLowerCase().contains("buy")){
+               return service.chatOrder(chat, "BUY");
+           } else if(chat.toLowerCase().contains("sell")){
+               return service.chatOrder(chat, "SELL");
+           } else {
+               return "Order type is not clear. Please try again";
+           }
+       } else {
+           return "The message you sent is invalid. Try again";
+       }
+    }
 }
