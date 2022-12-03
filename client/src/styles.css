@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+body, html {
+    overflow-x: hidden;
+    height: 100%;
+    background-color: rgb(85, 85, 186);
+    background-image: radial-gradient(rgb(169, 140, 78), rgb(151, 151, 231));
+    background-repeat: no-repeat;
+  }
+
+  /*     
+rgb(221, 221, 230)
+
+  */
