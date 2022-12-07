@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FBCommentEmbedComponent } from 'ngx-facebook';
 
 @Component({
   selector: 'app-login',

@@ -8,8 +8,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-//Facebook plugin 
-import { FacebookModule } from 'ngx-facebook';
 //PrimeNG modules
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MenubarModule} from 'primeng/menubar';
@@ -52,7 +50,6 @@ import { LoginComponent } from './components/login/login.component';
     DialogModule,
     DropdownModule,
     InputNumberModule,
-    FacebookModule,
     StoreModule.forRoot({}),
     DashboardModule,
     EffectsModule.forRoot([])

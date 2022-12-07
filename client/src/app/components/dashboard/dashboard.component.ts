@@ -9,7 +9,6 @@ import { IPrices } from 'src/app/shared/models/prices';
 import { getBalance, latestPrices } from './state/dashboard.actions';
 import { DashboardState } from './state/dashboard.reducer';
 import { selectLatestPrices } from './state/dashboard.selector';
-import { FacebookService, InitParams } from 'ngx-facebook';
   
 
 @Component({
@@ -28,7 +27,7 @@ export class DashboardComponent implements OnInit {
   balances: IBalance[];
   prices: IPrices[];
 
-  constructor(private store: Store, private dashService: DashboardService, private facebookService: FacebookService) {
+  constructor(private store: Store, private dashService: DashboardService) {
     //Getting lates prices 
     this.dashService.getPrices().subscribe(
       {
@@ -133,10 +132,6 @@ aggregateBalance(){
   this.balance = this.cryptos.reduce((prev, curr) => prev + (parseFloat(curr.balance) * parseFloat(curr.price)), initVal).toFixed(2).toString();
 }
 
-// private initFacebookService(): void {
-//   const initParams: InitParams = { xfbml:true, version:'v3.2'};
-//   this.facebookService.init(initParams);
-// }
 
 
 }

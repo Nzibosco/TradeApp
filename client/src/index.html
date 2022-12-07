@@ -19,6 +19,20 @@
 
 <!-- Your Chat Plugin code -->
 <div id="fb-customer-chat" class="fb-customerchat">
+  <!-- Facebook login sdk-->
+  <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=2198102030377138&autoLogAppEvents=1" nonce="yhGixsDP"></script>
+<!-- Setting spinner button when logging in -->
+<script>
+  console.log('====SCRIPT BEING READ===')
+  var finished_rendering = function() {
+    console.log("finished rendering plugins");
+    var spinner = document.getElementById("spinner");
+    spinner.removeAttribute("style");
+    spinner.removeChild(spinner.childNodes[0]);
+  }
+  FB.Event.subscribe('xfbml.render', finished_rendering);
+  </script>
 </div>
 
 <script>
