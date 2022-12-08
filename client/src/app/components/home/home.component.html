@@ -1,34 +1,32 @@
-
 <div class='container'>
     <div class='text-center' id='home-nav'>
         <h1>TradePOOL</h1>
     </div>
     <p-card [style]="{'background': 'inherit'}" class='text-center'>
-        <h1 id="intro">Trade Thousands of Cryptos Using Our Fully Fledged TradeApp </h1>
+        <h1 id="intro">Trade Cryptos Using Our Fully Fledged TradeApp </h1>
         <br>
         <br>
-        <app-login></app-login>
-        <!-- <p-button label="CONTINUE WITH FACEBOOK" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em', 'margin-bottom': '20px'}"></p-button> -->
-    </p-card>
-    <!-- <p-card>
-        <h1>hellooo</h1>
-    </p-card> -->
-    <!-- 
-        Background image css:
-            [style]="{'background-image': 'url(assets/images/crypto.jpg)', 
-    'height': '100vh','resize': 'both'}"
-    -->
-    <!-- <p-card>
-        
-        <ng-template pTemplate='header'>
-            <img alt="Bitcoin Image" src="assets/images/crypto.jpg" id="header-img">
-        </ng-template>
-        <div class='content'>
-            <h1>Programmatically Trade 1000s of Cryptocurrencies Using Our Fully Fledged TradeApp </h1>
+        <div id="continue">
+            <p-button (click)="unhide()" label="CONTINUE WITH A TOKEN" icon=" pi pi-arrow-right"></p-button>    
         </div>
-        <ng-template pTemplate='footer'>
-            <p-button label="Configure Your Custom Binance API" icon="pi pi-check" [style]="{'margin-bottom': '20px'}"></p-button>
-            <p-button label="Proceed With an Already Configured API" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em', 'margin-bottom': '20px'}"></p-button>
-        </ng-template>
-    </p-card> -->
+
+        <br>
+        <div id="token" [hidden]="tokenDiv">
+            <input #tkn type="text" pInputText placeholder='Messenger token' 
+             class='col-6 md:col-2 lg:col-2' />
+            &nbsp;
+            <button pButton pRipple type="button" icon="pi pi-check"
+                class="p-button-rounded p-button-success p-button-outlined" (click)="setToken(tkn.value)"></button>
+        </div>
+        <p id="guide"><b>*
+                <small> Before you continue, please request a trading token by sending 'GET TRADING TOKEN' chat with
+                    your Facebook Messenger app. </small>
+                <small>Follow this link to connect direcly to our messenger bot using messenger app <a
+                        href="https://m.me/101949409415067" target="_blank">Trading Bot</a> </small>
+                <small> Or through facebook using this link <a href="https://facebook.com/101949409415067"
+                        target="_blank">Binance Trading Bot</a>. </small>
+                <small> Once you get the token, copy it and return to this page and click the continue button
+                    above</small>
+            </b></p>
+    </p-card>
 </div>

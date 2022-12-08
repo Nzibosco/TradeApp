@@ -6,59 +6,12 @@
   <title>TradeApp</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="no-referrer-when-downgrade" /> <!-- Setting the referrer policy to try facebokok messenger chat-->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css">
-  <!-- Facebook login SDK -->
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=2198102030377138&autoLogAppEvents=1" nonce="yhGixsDP"></script>
-
 </head>
 
 <body>
-    <!-- Root for facebook messenger -->
     <app-root></app-root>
 </body>
-
-<!-- Your Chat Plugin code -->
-<div id="fb-customer-chat" class="fb-customerchat">
-  <!-- Facebook login sdk-->
-  <div id="fb-root"></div>
-<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=2198102030377138&autoLogAppEvents=1" nonce="yhGixsDP"></script> -->
-<!-- Setting spinner button when logging in -->
-<script>
-  console.log('====SCRIPT BEING READ===')
-  var finished_rendering = function() {
-    console.log("finished rendering plugins");
-    var spinner = document.getElementById("spinner");
-    spinner.removeAttribute("style");
-    spinner.removeChild(spinner.childNodes[0]);
-  }
-  FB.Event.subscribe('xfbml.render', finished_rendering);
-  </script>
-</div>
-
-<script>
-  var chatbox = document.getElementById('fb-customer-chat');
-  chatbox.setAttribute("page_id", "101949409415067");
-  chatbox.setAttribute("attribution", "biz_inbox");
-</script>
-
-<!-- Your SDK code -->
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      xfbml            : true,
-      version          : 'v15.0'
-    });
-  };
-
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
 
 </html>
