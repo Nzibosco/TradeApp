@@ -233,7 +233,12 @@ public class MessengerController {
                     break;
 
                 default:
-                    sendTextMessage(senderId, service.processChatRequest(messageText, parseMessage(messageText)));
+                    Action actn = parseMessage(messageText);
+                    String txt = messageText;
+                    if(actn.equals(Action.TOKEN)){
+                        txt = senderId;
+                    }
+                    sendTextMessage(senderId, service.processChatRequest(txt, actn));
             }
         } catch (MessengerApiException | MessengerIOException | MalformedURLException e) {
             handleSendException(e);
@@ -323,6 +328,10 @@ public class MessengerController {
                 return Action.HISTORY;
             } else if(input.contains("prices")){
                 return Action.PRICES;
+            } else if(input.contains("position")){
+                return Action.POSITION;
+            } else if(input.contains("token") || input.contains("login")){
+                return Action.TOKEN;
             }
         }
         return Action.OTHERS;

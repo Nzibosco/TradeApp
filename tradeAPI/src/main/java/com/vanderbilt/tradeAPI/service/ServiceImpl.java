@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -97,8 +99,16 @@ public class ServiceImpl implements ApiService {
         switch(action){
             case BALANCE :
                 return "Getting the balance for you ... \n The balance is " + aggregateBalance();
+            case POSITION:
+                return "Asset positions: \n" + assetBalances();
             case PRICES:
-                return "Getting the latest prices for you! \n " + getLatestPrices();
+                List<TickerPrice> prices = getLatestPrices();
+                StringBuilder sb = new StringBuilder();
+                sb.append("LATEST PRICES: \n");
+                for(TickerPrice p : prices){
+                    sb.append(p.getSymbol()).append("= ").append(p.getPrice()).append("\n");
+                }
+                return "Getting the latest prices for you! \n " + sb;
             case BUY:
                 logger.info("About to buy crypto from a chat order");
                 return chatOrder(message, BUY);
@@ -107,6 +117,8 @@ public class ServiceImpl implements ApiService {
                 return chatOrder(message, SELL);
             case HISTORY:
                 return "Retrieving your trade history";
+            case TOKEN:
+                return "Login token: " + tradeToken(message); //Message should be the userID retrieved from event
             default:
                 return "Sorry, I couldn't understand your request. Try again";
         }
@@ -120,7 +132,8 @@ public class ServiceImpl implements ApiService {
         HashMap<String, Double> map = assetBalances();
         logger.info("............Successfully retrieved assets and their monetary balances "+ map);
         balance = map.values().stream().reduce(0d, Double::sum);
-        return balance;
+        BigDecimal bgd = new BigDecimal(balance).setScale(2, RoundingMode.HALF_EVEN); //Rounding to 2 decimal points
+        return bgd.doubleValue();
     }
 
     public HashMap<String, Double> assetBalances (){
@@ -194,6 +207,13 @@ public class ServiceImpl implements ApiService {
         } catch (Exception e){
             return e.getMessage();
         }
+    }
+
+    public String tradeToken(String senderId){
+        Random rand = new Random();
+        double x = rand.nextDouble();
+        String nums = Double.toString(x).substring(2,6); //Getting 4 digits after the "."
+        return nums + senderId;
     }
 
 }
